@@ -127,12 +127,12 @@ if ($conn->connect_error) {
             
         <button type="submit" id="submit">Anmelden!</button>
         </form>
-        <p style="font-weight: thin;margin: 10px 0 0 20px;font-size:12px;color: grey;"><sup>*</sup> Pflichtfelder</p>
+        <p style="font-weight: thin;margin: 10px 0 50px 20px;font-size:12px;color: grey;"><sup>*</sup> Pflichtfelder</p>
     </div>
 
     <!-- DOWNER -->
     <footer class="downer">
-        <p>For support contact: streiosc@curiegym.de | Copyright <span id="year"></span> | Oscar Streich</p>
+        <p style="text-align:center;">For support contact: streiosc@curiegym.de | Copyright <span id="year"></span> | Oscar Streich</p>
     </footer>
 
     <div class="alerts" id="alerts">
