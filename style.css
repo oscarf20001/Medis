@@ -1,5 +1,246 @@
-html, body{
+:root{
+    --black: #000;
+    --primary: #09192D;
+    --secondary: #52c393;
+    --hover: #08164b;
+    --border: #eee;
+    --borderHover: #aaa;
+}
+
+* {
+    font-family: Arial, Helvetica, sans-serif;
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    background-color: darkblue;
+}
+
+body{
+    /*background: linear-gradient(135deg, #081b4b,#09192D);*/
+    background-color: #081b4b;
+    width: 100%;
+    max-width: 100vw;
+    height: 100vh;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+.upper{
+    height: 10vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main{
+    height: 85vh;
+    width: 100%;
+}
+
+.downer{
+    height: 5vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: grey;
+}
+
+.input-field {
+    position: relative;
+    border-bottom: 2px solid #ccc;
+    margin: 15px 0;
+}
+
+.input-field label {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    color: #fff;
+    font-size: 16px;
+    pointer-events: none;
+    transition: 0.2s ease;
+}
+
+.input-field input,
+.input-field select {
+  width: 100%;
+  height: 40px;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  color: #52C393;
+}
+
+.input-field input::-webkit-outer-spin-button,
+.input-field input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.input-field select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding: 10px;
+}
+
+.input-field select:focus~label,
+.input-field input:focus~label,
+.input-field input:valid~label,
+.input-field select:valid~label {
+  font-size: 0.8rem;
+  top: 10px;
+  transform: translateY(-120%);
+  color: #52C393;
+}
+
+input[type="submit"] {
+  background: #fff;
+  color: #000;
+  font-weight: 600;
+  border: none;
+  padding: 12px 20px;
+  cursor: pointer;
+  border-radius: 3px;
+  font-size: 16px;
+  border: 2px solid transparent;
+  transition: 0.3s ease;
+}
+
+input[type="submit"]:hover {
+  color: #fff;
+  border-color: #fff;
+  background-color: #52C393;
+}
+
+.main form{
+  position: relative;
+}
+
+.main form .downerForm{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.main form .downerForm .university{
+  width: 100%;
+}
+
+.main form .downerForm .specificMedis{
+  width: 100%;
+}
+
+.main form .generell{
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/*.main form .generell::after{
+  content: "";
+  position: absolute;
+  bottom: -10%;
+  left: 0%;
+  height: 1px;
+  width: 100%;
+  background-color: #52c393;
+}*/
+
+.main form .generell .inputsGenerell{
+  margin: 10px 0 0 0;
+  display: grid;
+  grid-template-areas: 
+            "name name prename prename"
+            "email email email email";
+}
+
+.main form .generell .inputsGenerell .input-field{
+  margin: 10px 25px 10px 0px;
+}
+
+.main form .generell .inputsGenerell .name{
+  grid-area: name;
+}
+
+.main form .generell .inputsGenerell .prename{
+  grid-area: prename;
+}
+
+.main form .generell .inputsGenerell .email{
+  grid-area: email;
+  width: calc(50% - 25px);
+}
+
+.main form .formBlock{
+  margin: 30px 20px;
+}
+
+.main form .specificMedis h2, .main form .university h2{
+  margin: 0 0 40px 0;
+}
+
+.main form button{
+  background-color: transparent;
+  height: 50px;
+  /*aspect-ratio: 16/6;*/
+  width: 150px;
+  color: white;
+  font-size: 16px;
+  border-radius: 10px;
+  border: 1px solid white;
+  /*position: absolute;
+  left: 50%;
+  transform: translateX(-50%);*/
+  margin: 0 0 0 20px;
+  transition: .3s ease;
+}
+
+.main form button:hover{
+  border: 1px solid var(--secondary);
+  background-color: var(--secondary);
+}
+
+.alerts{
+  position: absolute;
+  top: 10px;
+  right: 0;
+  padding: 20px 30px;
+  border-radius: 10px 0 0 10px;
+  transform: translateX(100%)
+}
+
+.success{
+  transition: .5s ease-out;
+  transform: translateX(0%) !important;
+  background-color: rgb(19, 222, 19);
+}
+
+.fail{
+  transition: .5s ease-out;
+  transform: translateX(0%) !important;
+  background-color: rgb(222, 19, 19);
+}
+
+.alerts .alert{
+  display: flex;
+  justify-content: space-between;
+}
+
+.alerts .alert svg{
+  height: 20px;
+  width: auto;
+  margin: 0 10px 0 0;
 }

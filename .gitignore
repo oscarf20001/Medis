@@ -1,0 +1,18 @@
+.gitsecret/keys/random_seed
+!*.secret
+
+# Unverschlüsselte Dateien ignorieren
+.env
+
+# MacOS spezifische Dateien ignorieren
+.DS_Store
+
+# Composer Abhängigkeiten
+/vendor/
+
+# Git-Secret Dateien, die nicht geteilt werden sollen
+# (optional, wenn bestimmte Git-Secret Dateien lokal bleiben sollen)
+.gitsecret/
+
+# Weitere sensitive Dateien
+myconfig.yml
