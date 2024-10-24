@@ -101,7 +101,7 @@ if ($conn->connect_error) {
 
                 <div class="input-field">
                     <select name="trousesSize" id="trousesSize" required>
-                        <option value="none">--> Bitte auswählen <--</option>
+                        <option value="none" disabled>--> Bitte auswählen <--</option>
                         <option value="XS">XS</option>
                         <option value="S">S</option>
                         <option value="M">M</option>
@@ -113,7 +113,7 @@ if ($conn->connect_error) {
 
                 <div class="input-field">
                     <select name="shirtSize" id="shirtSize" required>
-                        <option value="none">--> Bitte auswählen <--</option>
+                        <option value="none" disabled>--> Bitte auswählen <--</option>
                         <option value="XS">XS</option>
                         <option value="S">S</option>
                         <option value="M">M</option>
