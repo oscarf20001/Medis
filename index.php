@@ -31,7 +31,7 @@ if ($conn->connect_error) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Medimeisterschaften 2024 | Anmeldung</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -196,8 +196,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <script>  
                 document.addEventListener("DOMContentLoaded", function() {
                     document.getElementById("alerts").classList.add("success");
+                    document.getElementById("alerts").classList.remove("fail");
                     document.getElementById("check").style.display = "block";
                     document.getElementById("xmark").style.display = "none";
+
+                    setTimeout(() => {
+                        document.getElementById("alerts").style.transform = "translateX(100%)";
+                        console.log("Yallah");
+                    }, 5000);
                 });
             </script>
             ';
@@ -209,10 +215,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 <script>  
                     document.addEventListener("DOMContentLoaded", function() {
+                        document.getElementById("alerts").classList.remove("success");
                         document.getElementById("alerts").classList.add("fail");
                         document.getElementById("check").style.display = "none";
                         document.getElementById("xmark").style.display = "block";
                         document.getElementById("infoLine").innerText = "Fehler: Diese E-Mail-Adresse existiert bereits.";
+
+                        setTimeout(() => {
+                            document.getElementById("alerts").style.transform = "translateX(100%)";
+                            console.log("Yallah");
+                        }, 5000);
                     });
 
                 </script>

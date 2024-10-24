@@ -219,18 +219,19 @@ input[type="submit"]:hover {
   right: 0;
   padding: 20px 30px;
   border-radius: 10px 0 0 10px;
+  transition: .5s ease-out;
   transform: translateX(100%)
 }
 
 .success{
   transition: .5s ease-out;
-  transform: translateX(0%) !important;
+  transform: translateX(0%);
   background-color: rgb(19, 222, 19);
 }
 
 .fail{
   transition: .5s ease-out;
-  transform: translateX(0%) !important;
+  transform: translateX(0%);
   background-color: rgb(222, 19, 19);
 }
 
