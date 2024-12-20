@@ -16,3 +16,7 @@
 
 # Weitere sensitive Dateien
 myconfig.yml
+
+notes.txt
+
+data/*

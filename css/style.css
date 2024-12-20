@@ -128,7 +128,6 @@ input[type="submit"]:hover {
 .main form .downerForm{
   display: flex;
   justify-content: space-between;
-  align-items: center;
   width: 100%;
 }
 
@@ -140,10 +139,47 @@ input[type="submit"]:hover {
   width: 100%;
 }
 
+.main form .horbachAktion{
+  margin: 30px 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.main form .horbachAktion .content-horbach{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 10px 0 0 0;
+}
+
+#Horbach{
+  background: none;
+  background-color: transparent;
+  border: none;
+  border: 10px solid black;
+  background-color: #eee;
+  height: 17px;
+  width: 17px;
+  margin: 5px;
+}
+
 .main form .generell{
   display: flex;
   flex-direction: column;
   position: relative;
+}
+
+#outerDivNewInputs{
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+  margin: 1rem 0;
+}
+
+#outerDivNewInputs div{
+  width: 100%;
+  margin: 0 2rem 0 0;
 }
 
 /*.main form .generell::after{

@@ -1,23 +1,27 @@
 <?php
+// Fehlerausgabe aktivieren
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
 require __DIR__ . '/vendor/autoload.php';
 
 use Dotenv\Dotenv;
 
-// Erstelle ein Dotenv-Objekt und lade die .env-Datei
+// .env-Datei laden
 $dotenv = Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
-// Greife auf die Umgebungsvariablen zu
+// Datenbankverbindung herstellen
 $dbHost = $_ENV['DB_HOST'];
 $dbDatabase = $_ENV['DB_NAME'];
 $dbUsername = $_ENV['DB_USERNAME'];
 $dbPassword = $_ENV['DB_PASSWORD'];
 
-// Beispiel: Erstellen einer MySQL-Verbindung mit den Umgebungsvariablen
+// Verbindung prüfen
 $conn = new mysqli($dbHost, $dbUsername, $dbPassword, $dbDatabase);
-
-// Verbindung auf UTF-8 setzen
-$conn->set_charset("utf8");
+if ($conn->connect_error) {
+    die("Verbindung fehlgeschlagen: " . $conn->connect_error);
+}
 
 // Überprüfen der Verbindung
 if ($conn->connect_error) {
@@ -27,17 +31,17 @@ if ($conn->connect_error) {
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Medimeisterschaften 2024 | Anmeldung</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Medimeisterschaften 2025 | Anmeldung</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <!-- HEAD -->
     <div class="upper">
-        <h1>Medimeisterschaften 2024</h1>
+        <h1>Medimeisterschaften 2025</h1>
     </div> 
 
     <!-- MAIN -->
@@ -59,7 +63,7 @@ if ($conn->connect_error) {
                     </div>
                     <div class="input-field email">
                         <input type="email" id="email" name="email" required>
-                        <label for="email">Deine Email:<sup>*</sup></label>
+                        <label for="email">Deine Uni-Email:<sup>*</sup></label>
                     </div>
                 </div>
             </div>
@@ -72,7 +76,7 @@ if ($conn->connect_error) {
 
                 <div class="input-field studiengang">
                     <select name="studiengang" id="studiengang" required>
-                        <option value="none" disabled>--> Bitte auswählen <--</option>
+                        <option value="none" disabled selected>--> Bitte auswählen <--</option>
                         <option value="Humanmedizin">Humanmedizin</option>
                         <option value="Zahnmedizin">Zahnmedizin</option>
                     </select>
@@ -90,9 +94,9 @@ if ($conn->connect_error) {
                 </div>
             </div>
 
-        <!-- INFORMATIONS ABOUT THE MEDIS ITSELF AND ABOUT SIZES -->
+            <!-- INFORMATIONS ABOUT THE MEDIS ITSELF AND ABOUT SIZES -->
             <div class="specificMedis formBlock">
-            <h2>Nun etwas zu den <span style="color: #52c393">Medis!</span></h2>
+                <h2>Nun etwas zu den <span style="color: #52c393">Medis!</span></h2>
 
                 <div class="input-field">
                     <input type="number" id="countMedis" name="countMedis" required>
@@ -100,20 +104,30 @@ if ($conn->connect_error) {
                 </div>
 
                 <div class="input-field">
-                    <select name="trousesSize" id="trousesSize" required>
-                        <option value="none" disabled>--> Bitte auswählen <--</option>
+                    <select name="trousesOrRock" id="selectClothes" required>
+                        <option value="none" disabled selected>--> Bitte auswählen <--</option>
+                        <option value="Hose">Hose</option>
+                        <option value="Rock">Rock</option>
+                    </select>
+                    <label for="trousesOrRock">Hose oder Rock?</label>
+                </div>
+
+                <div class="input-field">
+                    <select name="clothSize" id="clothSize" required>
+                        <option value="none" disabled selected>--> Bitte auswählen <--</option>
                         <option value="XS">XS</option>
                         <option value="S">S</option>
                         <option value="M">M</option>
                         <option value="L">L</option>
                         <option value="XL">XL</option>
+                        <option value="XL">XXL</option>
                     </select>
-                    <label for="trousesSize">Fanpaket Größe Hose</label>
+                    <label for="clothSize" id="labelClothSize">Wähle zuerst Hose oder Rock aus</label>
                 </div>
 
                 <div class="input-field">
                     <select name="shirtSize" id="shirtSize" required>
-                        <option value="none" disabled>--> Bitte auswählen <--</option>
+                        <option value="none" disabled selected>--> Bitte auswählen <--</option>
                         <option value="XS">XS</option>
                         <option value="S">S</option>
                         <option value="M">M</option>
@@ -122,6 +136,26 @@ if ($conn->connect_error) {
                     </select>
                     <label for="shirtSize">Fanpaket Größe T-shirt</label>
                 </div>
+
+                <div class="input-field">
+                    <select name="shoesSize" id="shoeSize" required>
+                        <option value="none" disabled selected>--> Bitte auswählen <--</option>
+                        <option value="36-39">36-39</option>
+                        <option value="39-42">39-42</option>
+                        <option value="42-46">42-46</option>
+                    </select>
+                    <label for="shirtSize">Fanpaket Größe Schuhe</label>
+                </div>
+
+            </div>
+        </div>
+        <div class="horbachAktion" id="outerHorbach">
+            <div class="headline-horbach">
+                <h2><span style="color: #52c393">Horbach</span> Aktion</h2>
+                <p>Bei der Horbach-Aktion geht es darum, eine Vergünstigung zu bekommen! Spare 10€ auf das Fanpaket, indem du den Haken bei der unteren Checkbox setzt.</p>
+            </div>
+            <div class="content-horbach" id="outerCheckbox">
+                <input type="checkbox" name="HorbachAktion" id="Horbach"><p>Ich stimme zu, dass Horbach meine Daten verwenden darf, um mir ein vergünstigtes Fanpaket zu organisieren!</p>
             </div>
         </div>
             
@@ -132,7 +166,7 @@ if ($conn->connect_error) {
 
     <!-- DOWNER -->
     <footer class="downer">
-        <p style="text-align:center;">For support contact: streiosc@curiegym.de | Copyright <span id="year"></span> | Oscar Streich</p>
+        <p style="text-align:center;">For support contact: streiosc@curiegym.de | © <span id="year"></span> | Oscar Streich</p>
     </footer>
 
     <div class="alerts" id="alerts">
@@ -162,36 +196,72 @@ if ($conn->connect_error) {
 
         document.getElementById("year").innerHTML = year;
     </script>
+    <script src="javascript/horbach.js"></script>
+    <script src="javascript/clothes.js"></script>
 </body>
 </html>
 
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    echo '<pre>';
+    print_r($_POST);  // Überprüft, ob die Daten beim Absenden des Formulars empfangen werden
+    echo '</pre>';
+    echo 'DB_HOST: ' . getenv('DB_HOST');
+
+    //PERSONAL
     $name = $conn->real_escape_string($_POST['nachname']);
     $preName = $conn->real_escape_string($_POST['vorname']);
-    $email = $conn->real_escape_string($_POST['email']);
+    $uniEmail = $conn->real_escape_string($_POST['email']);
+    
+    //UNI
     $studienGang = $conn->real_escape_string($_POST['studiengang']);
-
     $semester = intval($_POST['semester']);
     $countMedis = intval($_POST['countMedis']);
     $matrikelNumber = intval($_POST['matrikelNumber']);
 
-    $trousesSize = $conn->real_escape_string($_POST['trousesSize']);  // String, daher "s" verwenden
+    //CLOTH
+    $clothType = $conn->real_escape_string($_POST['trousesOrRock']);  // String, daher "s" verwenden
+    $clothSize = $conn->real_escape_string($_POST['clothSize']);      // String, daher "s" verwenden
     $shirtSize = $conn->real_escape_string($_POST['shirtSize']);      // String, daher "s" verwenden
+    $shoeSize = $conn->real_escape_string($_POST['shoesSize']);      // String, daher "s" verwenden
 
+    //OTHER
     $time = getCurrentTimestamp();  // Unix-Timestamp als Integer
+    $price = 35;
+    
+    //HORBACH
+    $horbach_state = 0;
+    $prEmail = false;
+    $prPhoneNumber = false;
+    // Check if the checkbox is checked
+    if (isset($_POST['HorbachAktion'])) {
+        // Checkbox is checked, store the value
+        $horbach_state = 1;
 
-    if(!empty($name) && !empty($preName) && !empty($email)){
-        // 10 Spalten in der SQL-Abfrage, daher brauchen wir 10 Werte in bind_param
-        $stmt = $conn->prepare("INSERT INTO master (`name`, `vorname`, `email`, `studiengang`, `semesterCnt.`, `medisCnt.`, `matrikelNr.`, `trousers`, `shirt`, `time_GMT`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        
-        // Korrekte Typen: "ssssiiissi" (4 Strings, 2 Integers, 1 String, 2 Integers)
-        $stmt->bind_param("ssssiiisss", $name, $preName, $email, $studienGang, $semester, $countMedis, $matrikelNumber, $trousesSize, $shirtSize, $time);
+        $prEmail = $conn->real_escape_string($_POST['inputPrivatEmailHorbach']);      // String, daher "s" verwenden
+        $prPhoneNumber = $conn->real_escape_string($_POST['inputPrivatTelNumberHorbach']);      // String, daher "s" verwenden
+        $price = 25;
+
+        $stmt = $conn->prepare("INSERT INTO master (`name`, `vorname`, `uniEmail`, `studiengang`, `semesterCnt.`, `medisCnt.`, `matrikelNr.`, `cloth`, `sizeCloth`, `shirt`, `shoe`, `time_GMT`, `Horbach`, `phone_number`, `email`, `price`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("ssssiiisssssissi", $name, $preName, $uniEmail, $studienGang, $semester, $countMedis, $matrikelNumber, $clothType, $clothSize, $shirtSize, $shoeSize, $time, $horbach_state, $prPhoneNumber, $prEmail, $price);
+        if ($stmt === false) {
+            die('MySQL prepare error: ' . $conn->error);
+        }
+    }else{
+        $stmt = $conn->prepare("INSERT INTO master (`name`, `vorname`, `uniEmail`, `studiengang`, `semesterCnt.`, `medisCnt.`, `matrikelNr.`, `cloth`, `sizeCloth`, `shirt`, `shoe`, `time_GMT`, `Horbach`, `price`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("ssssiiisssssii", $name, $preName, $uniEmail, $studienGang, $semester, $countMedis, $matrikelNumber, $clothType, $clothSize, $shirtSize, $shoeSize, $time, $horbach_state, $price);
+        if ($stmt === false) {
+            die('MySQL prepare error: ' . $conn->error);
+        }
+    }
+
+    $stmt->execute();
+        if ($stmt->affected_rows === 0) {
+            die("Fehler: Kein Eintrag in der Datenbank vorgenommen.");
+        }
 
         try {
-            // Dein Code zum Ausführen des Statements
-            $stmt->execute();
-
             echo '
             <script>  
                 document.addEventListener("DOMContentLoaded", function() {
@@ -239,7 +309,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $stmt->close();
         $conn->close();
-    }
 }
 
 function getCurrentTimestamp() {
