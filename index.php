@@ -1,7 +1,10 @@
 <?php
+var_dump('Form Data:', $_POST);
+
 // Fehlerausgabe aktivieren
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
 require __DIR__ . '/vendor/autoload.php';
 
@@ -199,6 +202,7 @@ if ($conn->connect_error) {
     </script>
     <script src="javascript/horbach.js"></script>
     <script src="javascript/clothes.js"></script>
+    <script src="javascript/selects.js"></script>
 </body>
 </html>
 
@@ -240,7 +244,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $price = 25;
 
         $stmt = $conn->prepare("INSERT INTO master (`name`, `vorname`, `uniEmail`, `studiengang`, `semesterCnt.`, `medisCnt.`, `matrikelNr.`, `cloth`, `sizeCloth`, `shirt`, `shoe`, `time_GMT`, `Horbach`, `phone_number`, `email`, `price`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        var_dump("Preparing SQL Statement:", $stmt);
         $stmt->bind_param("ssssiiisssssissi", $name, $preName, $uniEmail, $studienGang, $semester, $countMedis, $matrikelNumber, $clothType, $clothSize, $shirtSize, $shoeSize, $time, $horbach_state, $prPhoneNumber, $prEmail, $price);
+        var_dump("Executing SQL Statement with Data:", $stmt);
         if ($stmt === false) {
             die('MySQL prepare error: ' . $conn->error);
         }
@@ -251,6 +257,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             die('MySQL prepare error: ' . $conn->error);
         }
     }
+
+    // Vor der Ausführung des SQL-Befehls
+    var_dump($stmt);
+    die();
 
     $stmt->execute();
         if ($stmt->affected_rows === 0) {
@@ -275,7 +285,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ';
         } catch (mysqli_sql_exception $e) {
             // Überprüfe, ob es sich um einen Duplicate Entry Fehler handelt
-            if ($e->getCode() === 1062) {
+            echo "Yo Yo Yo wir sind hier";
+            if ($e->getCode() == 1062) {
+                echo "und hier";
                 // Handle den Duplicate Entry Fehler
                 echo '
 
@@ -294,7 +306,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     });
 
                 </script>
-                
+
                 ';
             } else {
                 // Handle andere Fehler
