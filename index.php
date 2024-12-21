@@ -120,7 +120,7 @@ if ($conn->connect_error) {
                         <option value="M">M</option>
                         <option value="L">L</option>
                         <option value="XL">XL</option>
-                        <option value="XL">XXL</option>
+                        <option value="XXL">XXL</option>
                     </select>
                     <label for="clothSize" id="labelClothSize">Wähle zuerst Hose oder Rock aus</label>
                 </div>
@@ -133,6 +133,7 @@ if ($conn->connect_error) {
                         <option value="M">M</option>
                         <option value="L">L</option>
                         <option value="XL">XL</option>
+                        <option value="XXL">XXL</option>
                     </select>
                     <label for="shirtSize">Fanpaket Größe T-shirt</label>
                 </div>
@@ -203,11 +204,6 @@ if ($conn->connect_error) {
 
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-    echo '<pre>';
-    print_r($_POST);  // Überprüft, ob die Daten beim Absenden des Formulars empfangen werden
-    echo '</pre>';
-    echo 'DB_HOST: ' . getenv('DB_HOST');
 
     //PERSONAL
     $name = $conn->real_escape_string($_POST['nachname']);
