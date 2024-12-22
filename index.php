@@ -258,10 +258,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    // Vor der Ausführung des SQL-Befehls
-    var_dump($stmt);
-    die();
-
     $stmt->execute();
         if ($stmt->affected_rows === 0) {
             die("Fehler: Kein Eintrag in der Datenbank vorgenommen.");
