@@ -1,5 +1,4 @@
 <?php
-var_dump('Form Data:', $_POST);
 
 // Fehlerausgabe aktivieren
 ini_set('display_errors', 1);
@@ -244,33 +243,67 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $price = 25;
 
         $stmt = $conn->prepare("INSERT INTO master (`name`, `vorname`, `uniEmail`, `studiengang`, `semesterCnt.`, `medisCnt.`, `matrikelNr.`, `cloth`, `sizeCloth`, `shirt`, `shoe`, `time_GMT`, `Horbach`, `phone_number`, `email`, `price`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        var_dump("Preparing SQL Statement:", $stmt);
         $stmt->bind_param("ssssiiisssssissi", $name, $preName, $uniEmail, $studienGang, $semester, $countMedis, $matrikelNumber, $clothType, $clothSize, $shirtSize, $shoeSize, $time, $horbach_state, $prPhoneNumber, $prEmail, $price);
-        var_dump("Executing SQL Statement with Data:", $stmt);
         if ($stmt === false) {
             die('MySQL prepare error: ' . $conn->error);
         }
+
+        sendData($conn,$stmt);
     }else{
         $stmt = $conn->prepare("INSERT INTO master (`name`, `vorname`, `uniEmail`, `studiengang`, `semesterCnt.`, `medisCnt.`, `matrikelNr.`, `cloth`, `sizeCloth`, `shirt`, `shoe`, `time_GMT`, `Horbach`, `price`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         $stmt->bind_param("ssssiiisssssii", $name, $preName, $uniEmail, $studienGang, $semester, $countMedis, $matrikelNumber, $clothType, $clothSize, $shirtSize, $shoeSize, $time, $horbach_state, $price);
         if ($stmt === false) {
             die('MySQL prepare error: ' . $conn->error);
         }
-    }
 
-    $stmt->execute();
-        if ($stmt->affected_rows === 0) {
-            die("Fehler: Kein Eintrag in der Datenbank vorgenommen.");
+        sendData($conn,$stmt);
+    }
+}
+
+function sendData($conn, $stmt) {
+    try {
+        if ($stmt->execute() === true) {
+            echo "Data inserted successfully";
+            echo '
+                <script>  
+                    document.addEventListener("DOMContentLoaded", function() {
+                        document.getElementById("alerts").classList.add("success");
+                        document.getElementById("alerts").classList.remove("fail");
+                        document.getElementById("check").style.display = "block";
+                        document.getElementById("xmark").style.display = "none";
+
+                        setTimeout(() => {
+                            document.getElementById("alerts").style.transform = "translateX(100%)";
+                            console.log("Yallah");
+                        }, 5000);
+                    });
+                </script>
+                ';
+        } else {
+            echo "Error inserting data: " . $stmt->error;
+        }
+    } catch (mysqli_sql_exception $e) {
+        // Fängt den fatalen Fehler ab und gibt eine detaillierte Fehlermeldung aus
+        echo "Error inserting data: " . $e->getMessage()."\n<br>";
+
+        // Hier kannst du den Fehler behandeln, der beim Ausführen der SQL-Abfrage aufgetreten ist
+        if ($e->getCode() == 1062) {
+            echo "Duplicate entry detected."."\n<br>";
+            // Handle den Duplicate Entry Fehler (z.B. wenn eine E-Mail-Adresse bereits existiert)
+        } else {
+            // Handle andere Fehler
+            echo "Ein unbekannter Fehler ist aufgetreten: " . $e->getMessage()."\n<br>";
         }
 
-        try {
-            echo '
+        // Fehlerhafte Antwort für die Frontend-Seite
+        echo '
             <script>  
                 document.addEventListener("DOMContentLoaded", function() {
-                    document.getElementById("alerts").classList.add("success");
-                    document.getElementById("alerts").classList.remove("fail");
-                    document.getElementById("check").style.display = "block";
-                    document.getElementById("xmark").style.display = "none";
+                    document.getElementById("alerts").classList.remove("success");
+                    document.getElementById("alerts").classList.add("fail");
+                    document.getElementById("check").style.display = "none";
+                    document.getElementById("xmark").style.display = "block";
+                    document.getElementById("infoLine").innerText = "Fehler: Diese E-Mail-Adresse existiert bereits.";
 
                     setTimeout(() => {
                         document.getElementById("alerts").style.transform = "translateX(100%)";
@@ -278,42 +311,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     }, 5000);
                 });
             </script>
-            ';
-        } catch (mysqli_sql_exception $e) {
-            // Überprüfe, ob es sich um einen Duplicate Entry Fehler handelt
-            echo "Yo Yo Yo wir sind hier";
-            if ($e->getCode() == 1062) {
-                echo "und hier";
-                // Handle den Duplicate Entry Fehler
-                echo '
-
-                <script>  
-                    document.addEventListener("DOMContentLoaded", function() {
-                        document.getElementById("alerts").classList.remove("success");
-                        document.getElementById("alerts").classList.add("fail");
-                        document.getElementById("check").style.display = "none";
-                        document.getElementById("xmark").style.display = "block";
-                        document.getElementById("infoLine").innerText = "Fehler: Diese E-Mail-Adresse existiert bereits.";
-
-                        setTimeout(() => {
-                            document.getElementById("alerts").style.transform = "translateX(100%)";
-                            console.log("Yallah");
-                        }, 5000);
-                    });
-
-                </script>
-
-                ';
-            } else {
-                // Handle andere Fehler
-                echo "Es ist ein Fehler aufgetreten: " . $e->getMessage();
-            }
-        }
+        ';
+        echo 'Contact: "streiosc@curiegym.de" for help!';
+    }
+}
         
 
-        $stmt->close();
-        $conn->close();
-}
+$stmt->close();
+$conn->close();
 
 function getCurrentTimestamp() {
     // microtime gibt die Zeit im Format "Sekunden Mikrosekunden" zurück
