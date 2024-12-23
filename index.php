@@ -263,6 +263,7 @@ function sendData($conn, $stmt) {
                     });
                 </script>
                 ';
+            clearAutoIncrement($conn);
         } else {
             echo "Error inserting data: " . $stmt->error;
         }
@@ -316,6 +317,13 @@ function getCurrentTimestamp() {
 
     // Füge die Millisekunden hinzu
     return $date . ":$milliseconds";
+}
+
+function clearAutoIncrement($conn){
+    $sqlClearAutoIncrement = "ALTER TABLE master AUTO_INCREMENT = 0";
+    $stmt = $conn->prepare($sqlClearAutoIncrement);
+    $stmt->execute();
+    $stmt->close();
 }
 
 ?>
