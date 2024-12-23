@@ -1,5 +1,6 @@
 // HORBACH CHECKBOX GÖNNEN
 let checkbox = document.getElementById('Horbach');
+checkbox.checked = false;
 // STATE FÜR ADDED OR NOT ADDED
 let added = false;
 // AUF KLICK HÖLEN, WENN HORBACH GEKLICKT WIRD

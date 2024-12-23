@@ -1,34 +1,12 @@
 <?php
 
+require_once 'checks.php';
+require_once 'db_connection.php';
+
 // Fehlerausgabe aktivieren
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
-
-require __DIR__ . '/vendor/autoload.php';
-
-use Dotenv\Dotenv;
-
-// .env-Datei laden
-$dotenv = Dotenv::createImmutable(__DIR__);
-$dotenv->load();
-
-// Datenbankverbindung herstellen
-$dbHost = $_ENV['DB_HOST'];
-$dbDatabase = $_ENV['DB_NAME'];
-$dbUsername = $_ENV['DB_USERNAME'];
-$dbPassword = $_ENV['DB_PASSWORD'];
-
-// Verbindung prüfen
-$conn = new mysqli($dbHost, $dbUsername, $dbPassword, $dbDatabase);
-if ($conn->connect_error) {
-    die("Verbindung fehlgeschlagen: " . $conn->connect_error);
-}
-
-// Überprüfen der Verbindung
-if ($conn->connect_error) {
-    die("Verbindung fehlgeschlagen: " . $conn->connect_error);
-}
 
 ?>
 
@@ -42,7 +20,7 @@ if ($conn->connect_error) {
 </head>
 <body>
     <!-- HEAD -->
-    <div class="upper">
+    <div class="upper" id="first">
         <h1>Medimeisterschaften 2025</h1>
     </div> 
 
@@ -206,6 +184,12 @@ if ($conn->connect_error) {
 </html>
 
 <?php
+
+if(!$state == 1){
+    echo '<script src="javascript/disable.js"></script>';
+    exit();
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     //PERSONAL

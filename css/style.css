@@ -179,7 +179,7 @@ input[type="submit"]:hover {
 
 #outerDivNewInputs div{
   width: 100%;
-  margin: 0 2rem 0 0;
+  margin: 15px 2rem 0 0;
 }
 
 /*.main form .generell::after{
@@ -279,6 +279,28 @@ input[type="submit"]:hover {
   margin: 0 10px 0 0;
 }
 
+.banner{
+  background-color: red;
+  height: 2rem;
+  width: 100vw;
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 900;
+  font-size: 24px;
+}
+
+.disabled{
+  cursor: not-allowed;
+  color: grey !important;
+  border-color: grey !important;
+}
+
+.disabled:hover{
+  background-color: rgb(59, 59, 59) !important;
+}
+
 @media screen and (max-width: 768px){
   .main form .generell .inputsGenerell{
     grid-template-areas:
@@ -293,11 +315,18 @@ input[type="submit"]:hover {
 
   .main form .downerForm{
     flex-direction: column;
-    margin: 10px 45px 10px 20px;
+    margin: 10px 45px 10px 0px;
     width: auto;
   }
 
   .upper h1{
     text-align: center;
+  }
+
+  #outerDivNewInputs{
+    flex-direction: column;
+  }
+
+  #outerDivNewInputs div{
   }
 }
