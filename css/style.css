@@ -326,7 +326,4 @@ input[type="submit"]:hover {
   #outerDivNewInputs{
     flex-direction: column;
   }
-
-  #outerDivNewInputs div{
-  }
 }
