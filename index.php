@@ -247,7 +247,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 function sendData($conn, $stmt) {
     try {
         if ($stmt->execute() === true) {
-            echo "Data inserted successfully";
             echo '
                 <script>  
                     document.addEventListener("DOMContentLoaded", function() {
