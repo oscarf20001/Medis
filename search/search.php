@@ -84,8 +84,8 @@ $dotenv->load();
                                                 <p><strong>Vorname:</strong> ${item.vorname}</p>
                                                 <p><strong>Name:</strong> ${item.name}</p>
                                                 <p><strong>E-Mail:</strong> ${item.uniEmail}</p>
-                                                <p><strong>Bezahlt:</strong> ${item.paid === 0 ? 'Nein' : 'Ja'}</p>
-                                                <p><strong>Gesendet:</strong> ${item.sent === 0 ? 'Nein' : 'Ja'}</p>
+                                                <p><strong>Bezahlt:</strong> ${item.paid === 0 ? 'Ja' : 'Nein'}</p>
+                                                <p><strong>Gesendet:</strong> ${item.sent === 0 ? 'Ja' : 'Nein'}</p>
                                                 <p><strong>Code:</strong> ${item.code}</p>
                                             `;
                                             container.appendChild(row);
