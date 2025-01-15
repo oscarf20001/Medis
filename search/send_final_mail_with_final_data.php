@@ -81,15 +81,20 @@ function send_mail($vorname,$code, $Email,$mailHost,$mailPassword,$mailPort, $ma
         $mail->Port       = $mailPort;
         $mail->CharSet    = 'UTF-8';
 
-        // Empfänger
+        // Absender & Empfänger
         $mail->setFrom($mailUsername, 'Medimeisterschaften Uni Witten');
         $mail->addReplyTo('streiosc@curiegym.de', 'Oscar');
         $mail->addAddress($Email, $vorname);
+
+         // MDN und DSN Header
+        $mail->addCustomHeader('Disposition-Notification-To', $mailUsername); // MDN
+        $mail->addCustomHeader('Return-Path', $mailUsername); // DSN
 
         // Nachricht
         $mail->isHTML(true);
         $mail->Subject = 'DEIN Medicode 2025';
         $mail->Body    = $nachricht;
+        $mail->AltBody = 'Dein Code für die Medimeisterschaften 2025';
 
         $mail->send();
         $mailErfolg[] = "E-Mail erfolgreich an {$Email} mit dem Code: {$code} gesendet.";

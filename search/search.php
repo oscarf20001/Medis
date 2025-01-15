@@ -46,6 +46,7 @@ $dotenv->load();
         let vorname_Mail = null;
         let nachname_Mail = null;
 
+        //SEARCH FOR INPUT
         emailInput.addEventListener('input', () => {
             const query = emailInput.value;
 
