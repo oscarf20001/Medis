@@ -8,7 +8,7 @@ if (isset($_GET['query']) && !empty($_GET['query'])) {
     $query = $conn->real_escape_string($_GET['query']); // SQL-Injection vermeiden
 
     // Beispiel: Suche nach E-Mails, die mit der Eingabe übereinstimmen
-    $sql = "SELECT uniEmail FROM mails WHERE uniEmail LIKE '$query%' LIMIT 10";
+    $sql = "SELECT uniEmail FROM mails2 WHERE uniEmail LIKE '$query%' LIMIT 10";
     $result = $conn->query($sql);
 
     $suggestions = [];

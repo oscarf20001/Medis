@@ -24,7 +24,7 @@ if (isset($_GET['id']) && !empty($_GET['id']) && isset($_GET['vorname']) && !emp
     // Beispiel: Suche nach E-Mails, die mit der Eingabe übereinstimmen
     #$sql = "SELECT id, vorname, name, uniEmail, paid, sent, code FROM mails WHERE uniEmail LIKE '$query%'";
     $time = date('Y/m/d H:i:s') . '.' . substr(microtime(true), -4);
-    $sql = "UPDATE mails SET paid = 1, sent = 1, ts_paid = ? WHERE id = ?";
+    $sql = "UPDATE mails2 SET paid = 1, sent = 1, ts_paid = ? WHERE id = ?";
     $stmt = $conn->prepare($sql);  // Vorbereitetes Statement erstellen
     $stmt->bind_param("si", $time, $id);  // Parameter binden (string, integer)
     $stmt->execute();  // Ausführen der vorbereiteten Abfrage
@@ -59,7 +59,7 @@ function send_mail($vorname,$code, $Email,$mailHost,$mailPassword,$mailPort, $ma
                 Hiermit erhältst du deinen persönlichen Ticket Code<br>
                 Dieser lautet: " . htmlspecialchars($code, ENT_QUOTES, 'UTF-8') . "</p>
 
-                <p>Du hast bis zum 14.1.2025 Zeit deinen Code einzulösen und dir dein Medi Ticket auf https://medimeisterschaften.com zu kaufen. Falls du deinen Ticket Code bis zum 14. Januar nicht eingelöst hast, wird dieser an andere Person weiter verlost.</p><br>
+                <p>Du hast bis zum 21.01.25 22 Uhr Zeit deinen Code einzulösen und dir dein Medi Ticket auf https://medimeisterschaften.com zu kaufen. Falls du deinen Ticket Code bis dahin nicht eingelöst hast, wird dieser an andere Person weiter verlost.</p><br>
 
                 <p>Wir freuen uns mit dir auf die Medis2025</p>
                 <p>#NurLiebe<br>

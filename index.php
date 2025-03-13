@@ -133,7 +133,12 @@ mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
         <div class="horbachAktion" id="outerHorbach">
             <div class="headline-horbach">
                 <h2><span style="color: #52c393">Horbach</span> Aktion</h2>
-                <p>Bei der Horbach-Aktion geht es darum, eine Vergünstigung zu bekommen! Spare 10€ auf das Fanpaket, indem du den Haken bei der unteren Checkbox setzt.</p>
+                <p>Medis-Unterstützung-Aktion <br>
+
+Bei der Aktion geht es darum, eine Vergünstigung zu bekommen und Geld zu sammeln, damit für euch eine geile Meidmeisterschaften Saison organisiert werden kann! 
+Spare 10€ auf das Fanpaket, indem du den Haken bei der unteren Checkbox setzt. <br>
+
+Ich stimme zu, dass Medimeister Witten meine Daten verwenden darf und an Dritte weitergeben darf um mir ein vergünstigtes Fanpaket und eine coole Medimeisterschaften Saison zu organisieren !</p>
             </div>
             <div class="content-horbach" id="outerCheckbox">
                 <input type="checkbox" name="HorbachAktion" id="Horbach"><p>Ich stimme zu, dass Horbach meine Daten verwenden darf, um mir ein vergünstigtes Fanpaket zu organisieren!</p>
